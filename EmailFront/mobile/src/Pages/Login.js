@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     marginBottom: 10,
 
-  }
+  },
 
   label:{
     fontWeight:'bold',
