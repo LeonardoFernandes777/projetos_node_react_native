@@ -17,6 +17,7 @@ export default function Menu() {
       <TextInput secureTextEntry={true} style={styles.input} placeholder='SUA SENHA'/>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>ENTRAR</Text>
+        <Text>TESTE</Text>
       </TouchableOpacity>
     </View>
   </KeyboardAvoidingView >
