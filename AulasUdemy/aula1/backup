@@ -1,0 +1,40 @@
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const bodyParser = require ('body-parser');
+
+
+const url ='mongodb+srv://GropRoot:78951jesus@grouproot-bosup.mongodb.net/test?retryWrites=true&w=majority';
+const options = {poolSize: 5, useNewUrlParser: true, useUnifiedTopology: true};
+
+mongoose.connect(url, options);
+mongoose.set('useCreateIndex', true);
+
+mongoose.connection.on('error', (err) => {
+  console.log('Erro na Conexão com o banco de dados:' + err );
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('Aplicação desconectada do bando de dados!')
+});
+
+mongoose.connection.on('connected', () => {
+  console.log('Banco De Dados Conectado' );
+});
+
+//BODY PARSER
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+const indexRoute = require('./Routes/index');
+const UsersRoute = require('./Routes/users');
+
+app.use('/', indexRoute);
+app.use('/users', UsersRoute);
+
+
+app.listen(3000);
+
+module.exports = app;
