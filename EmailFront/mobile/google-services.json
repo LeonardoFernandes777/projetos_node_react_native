@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "580068558470",
+    "firebase_url": "https://fast-email.firebaseio.com",
+    "project_id": "fast-email",
+    "storage_bucket": "fast-email.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580068558470:android:1e6227e166fbe870deb307",
+        "android_client_info": {
+          "package_name": "com.EmailFront"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580068558470-g7glvdtg9399fjc3979utmbcup978uuh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBFylvgQW-AmoT1Fg8RmeZUTEQnzdBd68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580068558470-g7glvdtg9399fjc3979utmbcup978uuh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

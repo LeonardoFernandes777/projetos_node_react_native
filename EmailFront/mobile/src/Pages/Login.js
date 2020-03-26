@@ -1,23 +1,46 @@
-import React from 'react';
-import { Text, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { Text, View, KeyboardAvoidingView, StyleSheet, TouchableOpacity, Image, TextInput, ImageBackground} from 'react-native';
 import Logo from '../../assets/Logo.png' 
+import bg from '../../assets/bg.jpeg' 
 
-export default function Menu() {
+export default function Menu({navigation}) {
+  const [email, setEmail]= useState('')
+  const [senha, setSenha]= useState('')
+
   async function handleSubmit(){
-    
+    console.log(email)
+    console.log(senha)
+    navigation.navigate('Home')
   }
 
   return (
+    
   <KeyboardAvoidingView behavior='padding' style={styles.container}>
       <Image style={styles.logo} source={Logo}/>
     <View style={styles.form}>
       <Text style={styles.label}>DIGITE SEU E-MAIL *</Text>
-      <TextInput style={styles.input} keyboardType='email-address' autoCorrect={false} autoCapitalize='none' placeholder='SEU E-MAIL'/>
+
+      <TextInput
+       style={styles.input} 
+       keyboardType='email-address' 
+       autoCorrect={false} 
+       autoCapitalize='none' 
+       placeholder='SEU E-MAIL'
+       value={email}
+       onChangeText={setEmail}
+       />
+
         <Text style={styles.label}>DIGITE A SENHA DO SEU E-MAIL *</Text>
-      <TextInput secureTextEntry={true} style={styles.input} placeholder='SUA SENHA'/>
-      <TouchableOpacity style={styles.button}>
+
+      <TextInput 
+      secureTextEntry={true} 
+      style={styles.input} 
+      placeholder='SUA SENHA'
+      value={senha}
+       onChangeText={setSenha}
+      />
+      <TouchableOpacity onPress={handleSubmit} style={styles.button}>
         <Text style={styles.buttonText}>ENTRAR</Text>
-        <Text>TESTE</Text>
       </TouchableOpacity>
     </View>
   </KeyboardAvoidingView >
@@ -72,5 +95,9 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight:'bold',
     fontSize: 16,
-  }
+  },
+
+  image: {
+    flex: 1,
+  },
 })

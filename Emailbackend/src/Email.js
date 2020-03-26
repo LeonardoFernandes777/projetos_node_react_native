@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 var Lista =["janainaeleo048@gmail.com","lionblak123@gmail.com",",recrutamento@ampliarassessoria.com.br",
+"jonathanvinicius212@gmail.com",
 "recrutamento2@farmaciaartesanal.com",
 "essencialfarmacia1@outlook.com",
 "rla.rodrigues@institutocapacitare.com.br",
@@ -154,7 +155,7 @@ function loop (){
   transporter.sendMail({
     attachments: [{
       filename: 'curriculoLeo.docx',
-            path: 'C:\\Users\\leona\\Documents\\Emailbackend\\src/path/curriculoLeo.docx'
+            path: 'C:\\Users\\leona\\Documents\\projetos_node_react_native\\Emailbackend\\src/path/curriculoLeo.docx'
     }],
     from: '"Leonardo Fernandes 💻☕" <leonardo_fernandes.nunes@hotmail.com>',// sender address
     to: Lista[item],  // list of receivers

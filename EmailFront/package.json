@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@react-native-community/google-signin": "^4.0.0",
+    "react-native-firebase": "^5.6.0"
+  }
+}
