@@ -4,7 +4,7 @@
 
 ## Nome Do Projeto = GAME LOG 
 
-### Projeto final será uma api no Backend trabalhando com ReactJs no FrontEnd
+### Projeto final será uma api em NodeJs no Backend trabalhando com ReactJs no FrontEnd
 
 
 ========BackEnd========
