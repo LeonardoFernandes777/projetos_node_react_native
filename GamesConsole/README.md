@@ -1,10 +1,10 @@
-Obs: projeto Ainda em desenvolvimento 
+# Obs: projeto Ainda em desenvolvimento 
 
 
 
-Nome Do Projeto = GAME LOG 
+## Nome Do Projeto = GAME LOG 
 
-Projeto final será uma api no Backend trabalhando com ReactJs no FrontEnd
+### Projeto final será uma api no Backend trabalhando com ReactJs no FrontEnd
 
 
 ========BackEnd========
