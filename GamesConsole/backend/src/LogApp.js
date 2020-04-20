@@ -10,15 +10,15 @@ const log = (etapa, param, param2) => {
       console.log(` O Jogador ${param} Entrou na Partida`);
       break;
     case 'CK':
-      console.log(` ${param} [${param2}] `);
+      jogador = param
+      console.log(` Jogador ${param} [${param2}] Kill`);
       break;
     case 'SUICIDE':
-      console.log(`====================> ${param} **** SE MATOU **** [${param2}] `);
+      console.log(`\n <======== ${param}  SE MATOU  [${param2}] =======> \n `);
       break;
     default:
       break;
   }
 
 }
-
-module.exports = log
+module.exports = log;

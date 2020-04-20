@@ -1,7 +1,10 @@
 const fs = require("fs");
-const Config = require('./routes.js');
+const Config = require('../config');
 const debugLog = require('./LogApp');
 
+
+var Kill = 0;
+var suicide = 0;
 data = fs.readFile('C:\\Users\\leona\\Documents\\projetos_node_react_native\\GamesConsole\\backend\\src\\assets\\games.log', 'utf8', (err, data) => {
   if (err) throw err;
   else{
@@ -13,7 +16,7 @@ data = fs.readFile('C:\\Users\\leona\\Documents\\projetos_node_react_native\\Gam
       switch (lineType[1]) {
         case 'InitGame:':
           newGame(initGames, arrayLine);
-            break;
+          break;
         case 'ClientUserinfoChanged:':
           newPlayer(initGames, arrayLine, line);
           break;
@@ -21,8 +24,11 @@ data = fs.readFile('C:\\Users\\leona\\Documents\\projetos_node_react_native\\Gam
           countKills(initGames, arrayLine);
           break;
           case 'ShutdownGame:':
+            console.log(' Numero Total de Kill ' + Kill)
+            console.log(' Numero Total de Suicidio ' + suicide)
             console.log('\n ***** Partidda Encerrada ***** \n')
-            console.log('')
+            Kill = 0
+            suicide = 0
       }
     })
   }
@@ -42,7 +48,7 @@ function newGame(initGames, arrayLine) {
       'validation': {
         worldKills: 0,
         selfKills: 0,
-        countKills: 0
+        countKill: 0
       }
     }
   );
@@ -50,7 +56,7 @@ function newGame(initGames, arrayLine) {
   initGames[initGames.length - 1].game.push + 1;
 }
 
-function newPlayer(initGames, arrayLine, line) {
+function newPlayer(initGames, arrayLine, line,) {
   let startIndex = line.indexOf('n\\');
   let endIndex = line.indexOf('\\t') - 1;
   let charNumber = endIndex - startIndex;
@@ -62,7 +68,6 @@ function newPlayer(initGames, arrayLine, line) {
     initGames[initGames.length - 1].game.kills[player] = 0;
   }
 }
-
 
 function countKills(initGames, arrayLine) {
   initGames[initGames.length - 1].game.total_kills++;
@@ -78,23 +83,24 @@ function countKills(initGames, arrayLine) {
     Config.validation.enableLocalLog === true ? debugLog("CK", killed.player, '-') : '';
     initGames[initGames.length - 1].game.kills[killed.player]--;
     if (Config.validation.showValidation) {
-      initGames[initGames.length - 1].validation.worldKills++
-      initGames[initGames.length - 1].validation.countKills++
+      initGames[initGames.length - 1].validation.countKills ++
     }
     return;
   }
 
   function countUserKill(initGames, arrayLine) {
     let killer = recoverPlayer(arrayLine, 'player');
-    if (killer.validKill) {
-      Config.validation.enableLocalLog === true ? debugLog("CK", killer.player, '+') : '';
-      
+   if (killer.validKill) {
+      Config.validation.enableLocalLog === true ? debugLog("CK", killer.player, '+') : ''
+      Config.validation.countKill ++
+      Kill ++
     }
     else {
       if (Config.validation.showValidation) {
-        initGames[initGames.length - 1].validation.selfKills++
+        initGames[initGames.length - 1].validation.selfKills ++
       }
       Config.validation.enableLocalLog === true ? debugLog("SUICIDE", killer.player, '*') : '';
+      suicide ++
     }
     return;
   }

@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100%;
+}
+
+body {
+  background: #000 url('./assets/background.jpg') no-repeat;
+  background-size: cover;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+body, input, button{
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.container {
+  margin: 80px auto 0;
+  max-width: 450px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content{
+  width: 100%;
+  background: #FFF;
+  margin-top: 50px;
+  border-radius: 4px;
+  padding: 90px;
+}
+
+.content > p{
+  align-items: center;
+  font-size: 25px;
+  line-height: 30px;
+  margin-bottom: 30px;
+  color: #925692;
+}
+
+.content form{
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  width: 250px;
+}
+
+.content form label{
+  font-size: 14px;
+  color: #444;
+  font-weight: bold;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.content form input{
+  text-align: center;
+  margin-bottom: 5px;
+  border: 1px solid #dddddd;
+  border-radius: 2px;
+  height: 300px;
+  font-size: 16px;
+
+}
+
+.content button.btn{
+  border: 0;
+  border-radius: 2px;
+  width: 100%;
+  height: 42px;
+  padding: 0 20;
+  font-size: 16px;
+  font-weight: bold;
+  background: #925692;
+  color: #FFF;
+  cursor: pointer;
+}
