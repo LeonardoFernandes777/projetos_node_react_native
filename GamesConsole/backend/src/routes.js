@@ -1,8 +1,11 @@
 const express = require('express');
-const routes = express.Router();
-const GamesController = require('./controllers/GameController');
+const config = require('../config')
+const GameController = require('./controllers/GameController');
 
 
-routes.post('/Games', GamesController.store);
+const routes = (express.Router());
+routes.get(config.routesUrl.get, (req, res) => {
+    GameController.getLog(routes, req, res);
+});
 
 module.exports = routes;

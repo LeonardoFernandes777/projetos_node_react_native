@@ -1,41 +1,51 @@
-const fs = require("fs");
-const Config = require('../config');
-const debugLog = require('./LogApp');
+const appSettings = require('../../config');
+const debugLog = require('../Reader/LogPrint');
 
 
-var Kill = 0;
-var suicide = 0;
-data = fs.readFile('C:\\Users\\leona\\Documents\\projetos_node_react_native\\GamesConsole\\backend\\src\\assets\\games.log', 'utf8', (err, data) => {
-  if (err) throw err;
-  else{
-    let initGames = [];
-    lines = data.split(/[\n]/)
-    lines.map((line) =>{
-      let arrayLine = line.trim().split(/[\\]/);
-      let lineType = arrayLine[0].split(' ');
-      switch (lineType[1]) {
-        case 'InitGame:':
-          newGame(initGames, arrayLine);
-          break;
-        case 'ClientUserinfoChanged:':
-          newPlayer(initGames, arrayLine, line);
-          break;
-        case 'Kill:':
-          countKills(initGames, arrayLine);
-          break;
-          case 'ShutdownGame:':
-            console.log(' Numero Total de Kill ' + Kill)
-            console.log(' Numero Total de Suicidio ' + suicide)
-            console.log('\n ***** Partidda Encerrada ***** \n')
-            Kill = 0
-            suicide = 0
-      }
-    })
+class LogParser {
+
+  constructor() {}
+
+  doParse(log) {
+    return new Promise((resolve, reject) => {
+
+      let initGames = [];
+      let lines = log.split(/[\n]/);
+
+      lines.map((line) => {
+
+        let arrayLine = line.trim().split(/[\\]/);
+        let lineType = arrayLine[0].split(' ');
+
+        switch (lineType[1]) {
+          case 'InitGame:':
+            newGame(initGames, arrayLine);
+            break;
+          case 'ClientUserinfoChanged:':
+            newPlayer(initGames, arrayLine, line);
+            break;
+          case 'Kill:':
+            countKills(initGames, arrayLine);
+        }
+
+      });
+
+      resolve(initGames);
+
+    }).catch((err) => {
+      return {
+        error: "500",
+        message: err.message
+      };
+    });
   }
-});
+
+}
+
+//Starts a new object of 'game'
 function newGame(initGames, arrayLine) {
   let game = {};
-  Config.validation.enableLocalLog === true ? debugLog("NOVO JOGO", initGames.length) : '';
+  appSettings.validation.enableLocalLog === true ? debugLog("NG", initGames.length) : '';
   initGames.push(
     {
       'game': {
@@ -48,27 +58,29 @@ function newGame(initGames, arrayLine) {
       'validation': {
         worldKills: 0,
         selfKills: 0,
-        countKill: 0
+        countKills: 0
       }
     }
   );
-  if (!Config.validation.showValidation) delete initGames[initGames.length - 1].validation;
+  if (!appSettings.validation.showValidation) delete initGames[initGames.length - 1].validation;
   initGames[initGames.length - 1].game.push + 1;
 }
 
-function newPlayer(initGames, arrayLine, line,) {
+//Control of new players
+function newPlayer(initGames, arrayLine, line) {
   let startIndex = line.indexOf('n\\');
   let endIndex = line.indexOf('\\t') - 1;
   let charNumber = endIndex - startIndex;
   let player = line.trim().substr(startIndex, charNumber);
   player = player.replace(/\\/g, '');
-  Config.validation.enableLocalLog === true ? debugLog("NOVO PLAYER", player) : '';
+  appSettings.validation.enableLocalLog === true ? debugLog("NP", player) : '';
   if (initGames[initGames.length - 1].game.players.indexOf(player) === -1) {
     initGames[initGames.length - 1].game.players.push(player);
     initGames[initGames.length - 1].game.kills[player] = 0;
   }
 }
 
+//Count the total kill and count a kill for player or world
 function countKills(initGames, arrayLine) {
   initGames[initGames.length - 1].game.total_kills++;
   let user = arrayLine[0].includes('<world>');
@@ -78,37 +90,40 @@ function countKills(initGames, arrayLine) {
   }
   countUserKill(initGames, arrayLine);
 
+  //Count kills by world
   function countWorldKill(initGames, arrayLine) {
     let killed = recoverPlayer(arrayLine, 'world');
-    Config.validation.enableLocalLog === true ? debugLog("CK", killed.player, '-') : '';
+    appSettings.validation.enableLocalLog === true ? debugLog("CK", killed.player, '-') : '';
     initGames[initGames.length - 1].game.kills[killed.player]--;
-    if (Config.validation.showValidation) {
-      initGames[initGames.length - 1].validation.countKills ++
+    if (appSettings.validation.showValidation) {
+      initGames[initGames.length - 1].validation.worldKills++
+      initGames[initGames.length - 1].validation.countKills++
     }
     return;
   }
 
+  //Count kills by player
   function countUserKill(initGames, arrayLine) {
     let killer = recoverPlayer(arrayLine, 'player');
-   if (killer.validKill) {
-      Config.validation.enableLocalLog === true ? debugLog("CK", killer.player, '+') : ''
-      Config.validation.countKill ++
-      Kill ++
+    if (killer.validKill) {
+      appSettings.validation.enableLocalLog === true ? debugLog("CK", killer.player, '+') : '';
+      initGames[initGames.length - 1].game.kills[killer.player]++;
     }
     else {
-      if (Config.validation.showValidation) {
-        initGames[initGames.length - 1].validation.selfKills ++
+      if (appSettings.validation.showValidation) {
+        initGames[initGames.length - 1].validation.selfKills++
       }
-      Config.validation.enableLocalLog === true ? debugLog("SUICIDE", killer.player, '*') : '';
-      suicide ++
+      appSettings.validation.enableLocalLog === true ? debugLog("NV", killer.player, '*') : '';
     }
     return;
   }
 }
 
+//Get player name - killer and killed
 function recoverPlayer(logLine, deadBy) {
   let action = { player: undefined, validKill: undefined };
 
+  //Validate if the death is caused by world or another player
   if (deadBy === 'world') {
     let player = logLine[0].substr(logLine[0].indexOf('killed'));
     player = player.substr(7, player.indexOf('by'));
@@ -124,7 +139,7 @@ function recoverPlayer(logLine, deadBy) {
     killed = killed.slice(0, killed.indexOf('by')).trim();
     action.player = player;
 
-
+    //Validate if player did not kill himself
     if (player !== killed) {
       action.validKill = true;
     }
@@ -135,7 +150,7 @@ function recoverPlayer(logLine, deadBy) {
   return action;
 }
 
-
+//Get date of match
 function getDate(arrayLine) {
   for (let i = 0; i <= arrayLine.length; i++) {
     if (arrayLine[i] === 'version') {
@@ -145,7 +160,7 @@ function getDate(arrayLine) {
   }
 }
 
-
+//Get mapname of match
 function getMapName(arrayLine) {
   for (let i = 0; i <= arrayLine.length; i++) {
     if (arrayLine[i] === 'mapname') {
@@ -154,3 +169,5 @@ function getMapName(arrayLine) {
     }
   }
 }
+
+exports.LogParser = LogParser;
