@@ -1,32 +1,12 @@
-import React, {useState}from 'react';
+import React from 'react';
 import './App.css';
-import api from './services/api';
+import Routes from './routes'
 
-function App() {
-  const [text, setText] = useState('');
-
-  async function handleSubmit(event){
-    event.preventDefault();
-    //const response = await api.get('/Games',{ text })
-    console.log(text);
-  }
+function App() {  
   return (
     <div className="container">
         <div className="content">
-        <p>
-        <strong>ANALISADOR DE LOGS</strong>
-        </p>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="text">Log de suas partidas</label>
-          <input 
-          id = 'text' 
-          type='text' 
-          placeholder="Aguarde..."
-          value ={text}
-          onChange={ event => setText(event.target.value)}
-          />
-          <button className="btn" type="submit">BUSCAR</button>
-        </form>
+          <Routes/>
       </div>
     </div>
   );
