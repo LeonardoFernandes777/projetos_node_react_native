@@ -27,7 +27,7 @@ abrindo a pasta de backend o usuario rodando o comando
                                                     "yarn start"
                                                     
 
-o usuario será redirecioando para a tela a "1" tela do site 
+o usuario será redirecioando para a "1" tela do site 
 
 No FrontEnd o usuario final tera que selecionar o log de qual partida que ele quer olhar 
 
