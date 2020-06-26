@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+*{
+  margin: 0;                     /*Zerar a margin*/
+  padding: 0;                    /*Zerar os padding*/
+  outline: 0;                    /*Zerar o outline*/
+  box-sizing: border-box;        /**/ 
+}
+
+body {
+  font: 400 14px Roboto, sans-serif;        /*Definindo a fonte do corpo do site, o tamanho, e qual a fonte e tbm definindo uma segunda opção caso a primeira não esteja no ar*/
+  background-color: #f0f0f5;              /*Cor de Fundo Do Site*/
+  -webkit-font-smoothing: antialiased;      /*Não ativar Modelo de font diferente*/    
+}
+
+input, button, textarea{
+  font: 400 18px Roboto, sans-serif;        /*Padrão de font para os input button e textarea*/
+}
+
+button{
+  cursor: pointer;                          /*Mouse fica diferente quando passa pelo button*/
+}
+
+form input {                      /* Todo Input de formulario*/
+  width: 100%;                   /*Largura*/
+  height: 60px;                   /*Altura*/
+  color: #333;                  /*cor da letra de dentro*/
+  border: 1px solid #dcdce6;    /*espessura, solida e cor da borda*/
+  border-radius: 8px;             /*Arredondamento*/
+  padding: 0 24px;                /*distanciamneto*/
+}
+
+form textarea {                   /* Todo Input de formulario*/
+  width: 100%;                    /*Largura*/
+  min-height: 140px;              /*Altura*/
+  color: #333;                  /*cor da letra de dentro*/
+  border: 1px solid #dcdce6;    /*espessura, solida e cor da borda*/
+  border-radius: 8px;             /*Arredondamento*/
+  padding: 16px 24px;             /*distanciamneto*/
+  line-height: 24px;
+  resize: vertical;               /*Define que ele só pode aumentar verticalmente*/            
+}
+
+
+.button{
+  width: 100%;                    /*Largura*/
+  height: 60px;                   /*Altura*/
+  background: #e02041;          /*Cor*/
+  border: 0;                      /*Sem borda*/
+  border-radius: 8px;             /*Arrendoar o button*/
+  color: #FFF;                  /*Cor da Letra*/
+  font-weight: 700;               /*Estilo da letra no caso foi selecionado a bold*/
+  margin-top: 16px;               /*Espaçamento de cima*/
+  display: inline-block;          /**/
+  text-align: center;             /*Alinhar o texto no centro*/
+  text-decoration: none;          /**/
+  font-size: 18px;                /*Tamanho da letra no button*/
+  line-height: 60px;              /**/
+  transition: filter 0.2s;        /*Tempo de demora para fazer o efeito de hover*/
+}
+
+.button:hover {
+  filter: brightness(90%)         /*Escurecer o button em 90%*/
+}
+
+.back-link{
+  display: flex;
+  align-items: center;     /*Alinhar o texto com o icon*/
+  margin-top: 40px;
+  color: #41414d;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}

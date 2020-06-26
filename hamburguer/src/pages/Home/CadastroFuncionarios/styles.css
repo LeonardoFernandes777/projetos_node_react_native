@@ -1,0 +1,69 @@
+.div-container form input {
+  margin-top: 10px;
+}
+.div-container form .input-group {
+  display: flex;
+}
+
+.div-container form .input-group input + input {
+  margin-left: 8px;
+}
+
+.div-container form .input-group  .drop {
+  padding-top: 20px;
+  width: 200px;
+  padding: 20px
+}
+
+.cadastrados{
+  width: 95%;
+}
+
+.cadastrados h1{
+  padding-top: 50px;
+  padding-bottom: 15px;
+}
+
+.cadastrados strong{
+  padding: 10px
+}
+
+.cadastrados ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 24px;
+  list-style: none;
+}
+
+.cadastrados ul li {
+  background: #FFF;
+  border-radius: 8px;
+  position: relative;
+}
+
+.cadastrados ul li button{
+  position: absolute;
+  padding: 4px;
+  right: 24px;
+  top: 24px;
+  border: 1px;
+  border-radius: 5px;
+  background-color: #E02041;
+  color: #FFF;
+}
+
+.cadastrados ul li button:hover{
+  opacity: 0.3;
+}
+
+.cadastrados ul li strong {
+  display: flex;
+  color: #41414d;
+  font-size: 20;
+}
+
+.cadastrados ul li p {
+  display: flex;
+  color: #737380;
+  font-size: 15;
+}
