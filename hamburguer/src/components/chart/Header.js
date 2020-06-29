@@ -8,18 +8,19 @@ import LogoImg from '../../assets/logo.svg';
 const Header = () => {
   return (
     <ul className="ul-gerente">
-        <img src={LogoImg} alt="Be The Hero" style={{width: 200, paddingBottom: '20px', paddingLeft:'5px'}} />
-        <li><a class="active" href="/home-gerencia">MENU</a></li>
+        <img src={LogoImg} alt="Be The Hero" style={{width: 220, paddingTop: 10, paddingLeft: 10, paddingBottom: 15}} />
+        <li class="active" style={{paddingLeft: 83, fontSize: 23}}>MENU</li>
         <li><a href="/home-gerencia">DASHBOARD</a></li>
         <li><a className="li-gerente" href="/cadastro-funcionarios">FUNCIONARIOS</a></li>
         <li><a className="li-gerente" href="/home-almox">ALMOXARIFADO</a></li>
-        <li><a href="/home-cardapio">CARDAPIO</a></li>
+        <li><a className="li-gerente" href="/home-cardapio">CARDAPIO</a></li>
         <li><a href="/calendario">CALENDARIO</a></li>
-        <li><a href="/Testes">TESTES</a></li>
-        <li><a href="/">
-          <FiArrowLeft size={12} color="#E02041"/>
-          VOLTAR
-          </a></li>
+        <li><a href="/cupons">CUPONS</a></li>
+        <li><a href="/cupons">CONTAS PAGAR/RECEBER</a></li>
+        <li><a style={{marginBottom: 155}} href="/fornecedores">FORNECEDORES</a></li>
+        <a style={{paddingLeft: 10}} href="/">
+          <FiArrowLeft  size={40} color="#E02041"/>
+          </a>
     </ul>
   )
 }

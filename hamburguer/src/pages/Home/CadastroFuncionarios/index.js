@@ -23,9 +23,15 @@ export default function CadastroFuncionarios(){
   const [cepCadastro, setCepCadastro] = useState('');
   const [telefoneCadastro, setTelefoneCadastro] = useState('');
   const [emailCadastro, setEmailCadastro] = useState('');
-  const [cargo, setCargo] = useState('00000')
-  const [admissao, setadmissao] = useState('00000')
-  const [desligamento, setdesligamento] = useState('00000')
+
+
+  const [ nomeEdit, setNomeEdit] = useState('')
+  const [ enderecoEdit, setEnderecoEdit] = useState('')
+  const [ telefoneEdit, setTelefoneEdit] = useState('')
+  const [ cargoEdit, setCargoEdit] = useState('')
+  const [ adimissaoEdit, setAdmissaoEdit] = useState('')
+
+  const [idfunc , setIdfunc] = useState('')
 
   useEffect(() => {
     api.get('/listarColaborador',{
@@ -35,42 +41,75 @@ export default function CadastroFuncionarios(){
   }, [])
 
   async function handleSubmit(){
-    axios({
-      method: 'post',
-      url: 'http://fastorder-com-br.umbler.net/Colaborador',
-      data: qs.stringify({
-        nome: nomeCadastro,
-        data_de_nascimento: nascimetoCadastro,
-        cpf: cpfCadastro,
-        telefone: telefoneCadastro,
-        email: emailCadastro,
-        endereco: enderecoCadastro,
-        cidade: cidadeCadastro,
-        cep: cepCadastro,
-        uf: ufCadastro,
-      }),
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-      }
-    })
-  
+    try{
+      axios({
+        method: 'post',
+        url: 'http://fastorder-com-br.umbler.net/Colaborador',
+        data: qs.stringify({
+          nome: nomeCadastro,
+          data_de_nascimento: nascimetoCadastro,
+          cpf: cpfCadastro,
+          telefone: telefoneCadastro,
+          email: emailCadastro,
+          endereco: enderecoCadastro,
+          cidade: cidadeCadastro,
+          cep: cepCadastro,
+          uf: ufCadastro,
+          sexo: sexoCadastro
+        }),
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+        }
+      })
+    }catch(err){
+      alert('Error');
+    }
+    
+  }
+
+  async function handleEditFuncionario(){
+    try{
+      axios({
+        method: 'put',
+        url: `http://fastorder-com-br.umbler.net/atualizarColaborador/${idfunc}`,
+        data: qs.stringify({
+          nome: nomeEdit,
+          endereco: enderecoEdit,
+          telefone: telefoneEdit,
+          cargo: cargoEdit,
+          data_de_admissao: adimissaoEdit
+        }),
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+        }
+      })
+    }catch(err){
+      alert('Error');
+    }
   }
 
 
   //Pegar o Id do card/button
- async function handleEditarFuncionario(id){
+ async function handleApagarFuncionario(){
     try{
-      await api.put(`/atualizarColaborador/${id}`)
+      await api.DELETE(`http://fastorder-com-br.umbler.net/deletarColaborador/${idfunc}`)
     }catch(err){
-      alert('Erro ao Editar funcionario');
+      alert('Erro ao deletar funcionario');
     }
+  }
+
+  async function idFuncionario(id){
+    setIsModalViseble(true)
+    setIdfunc(id)
+    console.log(id)
+    //console.log(idfunc)
   }
 
   return(
     <div>
       <Header/>
       <div className="div-container" style={{paddingLeft: 250, width: '95%'}}>
-        <h1 >Cadastrar Novo Funcionario</h1>
+        <h1 style={{color:'#E02041' , fontSize: 35}}> Cadastrar Novo Funcionario </h1>
         <form className="cadastro-funcionario">
           <input 
           required 
@@ -161,7 +200,7 @@ export default function CadastroFuncionarios(){
       </div>
 
       <div className="cadastrados" style={{paddingLeft: 250 }}>
-        <h1>CARDS FUNCIONARIOS</h1>
+        <h1 style={{color:'#E02041' , fontSize: 35}}>CARDS FUNCIONARIOS</h1>
       <ul>
         {colaboradores.map(colaboradores => (
           <li key={colaboradores.id}>
@@ -179,12 +218,11 @@ export default function CadastroFuncionarios(){
           
           <strong>E-mail:&nbsp;....................&nbsp;<p>{colaboradores.email}</p></strong>
 
-        <strong>Cargo:&nbsp;....................&nbsp;<p>{cargo}</p></strong>
-          <strong>Admissão:&nbsp;..............&nbsp;<p>{admissao}</p></strong>
-          <strong>Desligamento:&nbsp;.......&nbsp;<p>{desligamento}</p></strong>
+        <strong>Cargo:&nbsp;....................&nbsp;<p>{colaboradores.cargo}</p></strong>
+          <strong>Admissão:&nbsp;..............&nbsp;<p>{colaboradores.data_de_admissao}</p></strong>
+          <strong>Desligamento:&nbsp;.......&nbsp;<p>{colaboradores.desligamento}</p></strong>
 
-          <strong>{colaboradores.createdAt}</strong>
-          <button onClick={() => setIsModalViseble(true) }  type="button">
+          <button onClick={() =>  idFuncionario(colaboradores.id) }  type="button">
             Editar/Atribuir Cargo
           </button>
         </li>
@@ -195,13 +233,44 @@ export default function CadastroFuncionarios(){
       <div className="div-container-modal" style={{paddingLeft: 25, width: '95%'}}>
       <h1>Editar Cadastro</h1>
         <form className="editar-funcionario">
-          <input type="text" placeholder="Nome Completo" required autoFocus />
-          <input type="text" placeholder="Endereço" required />
-          <input maxlength="8" placeholder="CEP" required />
-          <input type="tel" maxlength="13" placeholder="Telefone" required />
-          <input type="date" placeholder="Admissão" required/>
-          <input type="date" placeholder="Desligamento" required/>
-          <button onClick={() => handleEditarFuncionario(colaboradores.id)} className="button-modal">Salvar</button>
+          <input 
+          type="text" 
+          placeholder="Nome Sobrenome" 
+          autoFocus
+          value={nomeEdit}
+          onChange={event => setNomeEdit(event.target.value)} 
+          />
+
+          <input 
+          type="text" 
+          placeholder="Endereço" 
+          value={enderecoEdit}
+          onChange={event => setEnderecoEdit(event.target.value)}
+          />
+
+          <InputMask 
+          mask="(99) 99999-9999"  
+          placeholder="Telefone" 
+          value={telefoneEdit}
+          onChange={event => setTelefoneEdit(event.target.value)}
+          />
+
+          <input 
+          type="text" 
+          placeholder="Cargo" 
+          value={cargoEdit}
+          onChange={event => setCargoEdit(event.target.value)}
+          />
+
+          <InputMask 
+          mask="9999/99/99"
+          placeholder="Admissão" 
+          value={adimissaoEdit}
+          onChange={event => setAdmissaoEdit(event.target.value)}
+          />
+
+          <button onClick={() => handleEditFuncionario()} className="button-modal">Salvar</button>
+          <button onClick={() => handleApagarFuncionario()} className="button-modal-delete">Apagar</button>
         </form>
       </div>
       </Modal> : null}

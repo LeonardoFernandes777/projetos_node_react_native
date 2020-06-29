@@ -37,8 +37,31 @@
   margin-top: 10px;
 }
 
+.div-container-modal form.editar-funcionario text{
+  color: #FFF;
+  font-size: 15px;
+}
+
 
 .div-container-modal form.editar-funcionario  button{
+  width: 100%;                    /*Largura*/
+  height: 55px;                   /*Altura*/
+  background: #ffffff;          /*Cor*/
+  border: 0;                      /*Sem borda*/
+  border-radius: 8px;             /*Arrendoar o button*/
+  color: #000;                  /*Cor da Letra*/
+  font-weight: 700;               /*Estilo da letra no caso foi selecionado a bold*/
+  margin-top: 5px;               /*Espaçamento de cima*/
+  display: inline-block;          /**/
+  text-align: center;             /*Alinhar o texto no centro*/
+  text-decoration: none;          /**/
+  font-size: 25px;                /*Tamanho da letra no button*/
+  line-height: 60px;              /**/
+  transition: filter 0.2s;        /*Tempo de demora para fazer o efeito de hover*/
+}
+
+
+.div-container-modal form.editar-funcionario  button.button-modal-delete{
   width: 100%;                    /*Largura*/
   height: 55px;                   /*Altura*/
   background: #E02041;          /*Cor*/
