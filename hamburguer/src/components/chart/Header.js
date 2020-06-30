@@ -14,9 +14,9 @@ const Header = () => {
         <li><a className="li-gerente" href="/cadastro-funcionarios">FUNCIONARIOS</a></li>
         <li><a className="li-gerente" href="/home-almox">ALMOXARIFADO</a></li>
         <li><a className="li-gerente" href="/home-cardapio">CARDAPIO</a></li>
-        <li><a href="/calendario">CALENDARIO</a></li>
+        <li><a href="/calendario">PROCESSOS</a></li>
         <li><a href="/cupons">CUPONS</a></li>
-        <li><a href="/cupons">CONTAS PAGAR/RECEBER</a></li>
+        <li><a href="/contas">CONTAS PAGAR/RECEBER</a></li>
         <li><a style={{marginBottom: 155}} href="/fornecedores">FORNECEDORES</a></li>
         <a style={{paddingLeft: 10}} href="/">
           <FiArrowLeft  size={40} color="#E02041"/>

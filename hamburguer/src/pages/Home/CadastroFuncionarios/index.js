@@ -92,7 +92,7 @@ export default function CadastroFuncionarios(){
   //Pegar o Id do card/button
  async function handleApagarFuncionario(){
     try{
-      await api.DELETE(`http://fastorder-com-br.umbler.net/deletarColaborador/${idfunc}`)
+      await api.delete(`http://fastorder-com-br.umbler.net/deletarColaborador/${idfunc}`)
     }catch(err){
       alert('Erro ao deletar funcionario');
     }
@@ -128,12 +128,12 @@ export default function CadastroFuncionarios(){
               onChange={event => setCpfCadastro(event.target.value)}
               />
 
-              <input
-              style={{width: 200}}
-              value={sexoCadastro} 
-              placeholder="Sexo"
-              onChange={event => setSexoCadastro(event.target.value)}
-              />;
+          <select onChange={event => setSexoCadastro(event.target.value)} style={{ border: '1px solid #dcdce6', color: '#333', borderRadius: '8px', width: '200px', height: '60px', marginTop: 10, padding: '0 24px', fontSize: 17, marginLeft: 10 }} name="categorias">
+            <option value="null">Sexo</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+          </select>
+
           </div>
 
           <input 

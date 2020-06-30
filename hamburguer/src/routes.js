@@ -10,6 +10,7 @@ import LoginGerencia from './pages/Logins/LoginGerencia'
 import HomeGerencia from './pages/Home/HomeGerencia'
 import CadastroFuncionarios from './pages/Home/CadastroFuncionarios'
 import CadastroCardapio from './pages/Home/CadastroCardapio'
+import HomeAlmox from './pages/Home/HomeAlmox'
 
 
 
@@ -27,6 +28,8 @@ export default function Routes(){
 				<Route path="/home-gerencia" component={HomeGerencia} />
 				<Route path="/cadastro-funcionarios" component={CadastroFuncionarios} />
 				<Route path="/home-cardapio" component={CadastroCardapio} />
+				<Route path="/home-almox" component={HomeAlmox} />
+
 			</Switch>
 		</BrowserRouter>
 	);
